@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inditex</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 <body>
 <div id="logo-container">
@@ -37,29 +38,5 @@
         </footer>
     </div>
 </div>
-
-<script>
-    window.onload = function() {
-        const logoContainer = document.getElementById('logo-container');
-        const mainContent = document.getElementById('main-content');
-
-        setTimeout(() => {
-            logoContainer.style.transition = 'opacity 1s';
-            logoContainer.style.opacity = '0';
-            setTimeout(() => {
-                logoContainer.style.display = 'none';
-                mainContent.style.display = 'block';
-            }, 1000);
-        }, 1000);
-    };
-
-    function highlight(element) {
-        var items = document.querySelectorAll('.marcas li');
-        items.forEach(function(item) {
-            item.classList.remove('active');
-        });
-        element.classList.add('active');
-    }
-</script>
 </body>
 </html>
