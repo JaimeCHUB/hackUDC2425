@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from enum import Enum
 
 import requests
@@ -9,6 +10,12 @@ from requests.auth import HTTPBasicAuth
 #from playwright.async_api import async_playwright #versión async porque usamos fastAPI
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 class BrandName(str, Enum):
     zara = "zara"
@@ -58,111 +65,29 @@ def get_token():
 id_token = get_token()
 #print(f"Token: {id_token}")
 
-def get_image_url_static(url):
+def get_google_results(query:str):
+    api_key = "AIzaSyCn897caMX-UEnDdDNFDSFvWLftlQmlZ8M"
+    cx = "333e8cb4385db41c0"
+    num = 1
+    url = "https://www.googleapis.com/customsearch/v1"
 
-    image_endpoint="https://static.zara.net/assets/public/"
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+    params = {
+        "q": query,          # Término de búsqueda
+        "key": api_key,      # Tu clave de API
+        "cx": cx,            # ID del motor de búsqueda
+        "searchType": "image",  # Buscar solo imágenes
+        "num": num           # Número de resultados a devolver
     }
 
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
+    response = requests.get(url, params=params)
 
-    # Analizar el HTML con BeautifulSoup
-    soup = BeautifulSoup(response.text, "html.parser")
-
-    # Encontrar todas las etiquetas <img>
-    imgs = soup.find_all("img")
-
-    # Extraer los enlaces de las imágenes (atributo src)
-    image_urls = [img["src"] for img in imgs if "src" in img.attrs]
-
-    print(image_urls)
-
-    return image_urls
-
-async def get_image_url(url):
-
-    async with async_playwright() as p:
-        # Iniciar el navegador
-        #Headless = True para que sea invisible
-        browser = await p.chromium.launch(
-            headless=False,  # Ejecutar en modo headless
-            args=[
-                "--disable-blink-features=AutomationControlled",  # Deshabilitar la detección de automatización
-                "--no-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-                "--disable-software-rasterizer",
-                "--disable-background-networking",
-                "--disable-background-timer-throttling",
-                "--disable-backgrounding-occluded-windows",
-                "--disable-breakpad",
-                "--disable-client-side-phishing-detection",
-                "--disable-component-update",
-                "--disable-default-apps",
-                "--disable-domain-reliability",
-                "--disable-extensions",
-                "--disable-features=AudioServiceOutOfProcess",
-                "--disable-hang-monitor",
-                "--disable-ipc-flooding-protection",
-                "--disable-popup-blocking",
-                "--disable-prompt-on-repost",
-                "--disable-renderer-backgrounding",
-                "--disable-sync",
-                "--force-color-profile=srgb",
-                "--metrics-recording-only",
-                "--no-first-run",
-                "--safebrowsing-disable-auto-update",
-                "--enable-automation",  # Habilitar la automatización (paradójicamente, esto puede ayudar a evitar detecciones)
-                "--password-store=basic",
-                "--use-mock-keychain",
-            ],
-        )
-        #browser = await p.chromium.launch(headless=True)
-
-        context = await browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
-        )
-        page = await context.new_page()
-
-        #page = await browser.new_page()
-        #await page.set_extra_http_headers(headers)
-
-        # Abrir la página
-        await page.goto(url)
-
-        # Esperar a que la página cargue completamente (opcional)
-        #await page.wait_for_timeout(5000)  # Espera a que se carguen las imágenes
-
-        await page.wait_for_selector("img", state="attached")  # Espera a que al menos una imagen esté en el DOM
-        
-        #print(await page.content())
-
-        # Encontrar todas las etiquetas <img>
-        #imgs = await page.query_selector_all("img")
-
-        # Extraer los enlaces de las imágenes (atributo src)
-        #image_urls = [await img.get_attribute("src") for img in imgs]
-        #print(image_urls)
-
-        # Cerrar el navegador
-        #await browser.close()
-
-        #return image_urls
-
-        #await page.wait_for_selector("img", state="attached")
-        img = await page.query_selector("img")
-        image_url = await img.get_attribute("src")
-        await browser.close()
-        print(url)
-        print(image_url)
-        return image_url
-
-
-
-
+    if response.status_code == 200:
+        results = response.json()
+        # Extraer las URLs de las imágenes
+        image_urls = [item["link"] for item in results.get("items", [])]
+        return image_urls[0]
+    else:
+        print("Error en la solicitud:", response.status_code)
 
 def get_products(query:str, brand:str, page:int, perPage:int):
     # URL de la API
@@ -243,6 +168,9 @@ async def get_items(query: str, brand: BrandName | None = None, page: int | None
     products = get_products(query, None if brand == None else brand.value, page, perPage)
     #for product in products:
         #await get_image_url(product.get("link"))
+    #for product in products:
+    #    print(get_google_results(f"{products[0].get("name")} {products[0].get("brand")}"))
+
     return products
 
 @app.get("/products/image")
