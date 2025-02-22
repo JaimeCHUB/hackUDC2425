@@ -22,8 +22,8 @@ function actualizarImagen(nuevaURL) {
     imagen.src = nuevaURL || "nophoto.png";
 }
 
-async function buscarProd(query, marca, page = 1, perPage = 5) {
-    const params = new URLSearchParams({ query, marca, page, perPage });
+async function buscarProd(query, brand, page = 1, perPage = 5) {
+    const params = new URLSearchParams({ query, brand, page, perPage });
 
     const url = `http://127.0.0.1:8000/products/text?${params.toString()}`;
     console.log("Buscar produto: ", url);
@@ -42,15 +42,49 @@ async function buscarProd(query, marca, page = 1, perPage = 5) {
 
 // PARTE DE BÚSQUEDA
 const searchInput = document.querySelector('.search-input');
-let actualBrand = 'todos'
+let actualBrand = 'zara'
 
-function funcionBuscar() {
+function insertarProductos(data) {
+    const container = document.getElementById("container-prod");
+    container.innerHTML = "";
+
+    if (Array.isArray(data) && data.length > 0) {
+        data.forEach(product => {
+            const fila = document.createElement("div");
+            fila.classList.add("producto-item");
+
+            if (product.price.original == null) {
+                fila.innerHTML = `
+                <h3>${product.name}</h3>
+                <p>Precio: ${product.price.value.current} ${product.price.currency}</p>
+                <p>Marca: ${product.brand}</p>
+                <a href="${product.link}" target="_blank">Ver Producto</a>
+                `
+            } else {
+                fila.innerHTML = `
+                <h3>${product.name}</h3>
+                <p>Precio: ${product.price.value.original} ${product.price.currency} - ${product.price.value.current} ${product.price.currency}</p>
+                <p>Marca: ${product.brand}</p>
+                <a href="${product.link}" target="_blank">Ver Producto</a>
+                `
+            }
+
+            container.appendChild(fila);
+        });
+    } else {
+        container.innerHTML = "<p>No se encontraron productos.</p>";
+    }
+}
+
+async function funcionBuscar() {
     if (searchInput.value.trim() === '') {
         console.log('El campo de búsqueda está vacío.');
-    } else {
-        //FUNCIONALIDAD BÚSQUEDA POR TEXTO
-        console.log("ENVIAR")
-        buscarProd(searchInput.value.trim(), actualBrand);
+    }
+    try {
+        let jsonResp = await buscarProd(searchInput.value.trim(), actualBrand);
+        insertarProductos(jsonResp);
+    } catch (error) {
+        console.error('Error al buscar productos:', error);
     }
 }
 
