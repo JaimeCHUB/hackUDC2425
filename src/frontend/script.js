@@ -22,28 +22,27 @@ function actualizarImagen(nuevaURL) {
     imagen.src = nuevaURL || "nophoto.png";
 }
 
+async function buscarProd(query, marca, page = 1, perPage = 5) {
+    const params = new URLSearchParams({ query, marca, page, perPage });
 
-async function buscarProd(query, marca = null) {
-    const page = 1;
-    const perPage = 10;
-
-    const params = new URLSearchParams({ query, page, perPage });
-    if (marca) {
-        params.append('marca', marca);
+    const url = `http://127.0.0.1:8000/products/text?${params.toString()}`;
+    console.log("Buscar produto: ", url);
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error al buscar productos:', error);
+        throw error;
     }
-
-    const url = `http://localhost:8000/products?${params.toString()}`;
-
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
-    }
-    return response.json();
 }
+
 
 // PARTE DE BÚSQUEDA
 const searchInput = document.querySelector('.search-input');
-let actualBrand = 'Todos'
+let actualBrand = 'todos'
 
 function funcionBuscar() {
     if (searchInput.value.trim() === '') {
@@ -51,6 +50,7 @@ function funcionBuscar() {
     } else {
         //FUNCIONALIDAD BÚSQUEDA POR TEXTO
         console.log("ENVIAR")
+        buscarProd(searchInput.value.trim(), actualBrand);
     }
 }
 
