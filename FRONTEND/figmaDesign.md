@@ -1,1 +1,0 @@
-## Enlace al prototipado Figma

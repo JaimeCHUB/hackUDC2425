@@ -1,3 +1,0 @@
-# NOTAS SOBRE EL FRONTEND
-
-...
