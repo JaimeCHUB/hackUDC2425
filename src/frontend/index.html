@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inditex</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
 </head>
 <body>
 <div id="logo-container">
@@ -18,14 +17,14 @@
     <div class="container">
         <nav class="sidebar">
             <ul class="marcas">
-                <li onclick="highlight(this)">TODOS</li>
-                <li onclick="highlight(this)">LEFTIES</li>
-                <li onclick="highlight(this)">MASSIMO DUTTI</li>
-                <li onclick="highlight(this)">OYSHO</li>
-                <li onclick="highlight(this)">PULL AND BEAR</li>
-                <li onclick="highlight(this)">STRADIVARIUS</li>
-                <li onclick="highlight(this)">ZARA</li>
-                <li onclick="highlight(this)">ZARA HOME</li>
+                <li onclick="highlight(this, 'Todos')">TODOS</li>
+                <li onclick="highlight(this, 'Lefties')">LEFTIES</li>
+                <li onclick="highlight(this, 'Massimo_dutti')">MASSIMO DUTTI</li>
+                <li onclick="highlight(this, 'Oysho')">OYSHO</li>
+                <li onclick="highlight(this, 'Pull_and_bear')">PULL AND BEAR</li>
+                <li onclick="highlight(this, 'Stradivarius')">STRADIVARIUS</li>
+                <li onclick="highlight(this, 'Zara')">ZARA</li>
+                <li onclick="highlight(this, 'Zara_home')">ZARA HOME</li>
             </ul>
         </nav>
         <main class="content">
@@ -38,5 +37,6 @@
         </footer>
     </div>
 </div>
+<script src="script.js"></script>
 </body>
 </html>
