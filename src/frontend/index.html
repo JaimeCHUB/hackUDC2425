@@ -3,28 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inditex</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-    <h1 href="h1-title" class="logo">INDITEX</h1>
-    <nav>
-        <ul class="nav-links">
-            <li>TODOS</a></li>
-            <li>LEFTIES</a></li>
-            <li>MASSIMO DUTI</a></li>
-            <li>OYSHO</a></li>
-            <li>PULL AND BEAR</a></li>
-            <li>STRADIVARIUS</a></li>
-            <li>ZARA</a></li>
-            <li>ZARA HOME</a></li>
-        </ul>
-    </nav>
-</header>
-<main>
-    <div class="search-section">
-        <h2 class="search-title">QUE ESTÁS BUSCANDO?</h2>
+<div id="logo-container">
+    <h1 class="inditex-text">INDITEX</h1>
+</div>
+<div id="main-content" style="display: none;">
+    <header>
+        <h1 class="inditex-text">INDITEX</h1>
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <ul class="marcas">
+                <li onclick="highlight(this)">TODOS</li>
+                <li onclick="highlight(this)">LEFTIES</li>
+                <li onclick="highlight(this)">MASSIMO DUTTI</li>
+                <li onclick="highlight(this)">OYSHO</li>
+                <li onclick="highlight(this)">PULL AND BEAR</li>
+                <li onclick="highlight(this)">STRADIVARIUS</li>
+                <li onclick="highlight(this)">ZARA</li>
+                <li onclick="highlight(this)">ZARA HOME</li>
+            </ul>
+        </nav>
+        <main class="content">
+            <div class="search-section">
+                <input type="text" class="search-input" placeholder="¿Qué estás buscando?">
+                <div class="underline"></div>
+            </div>
+        </main>
+        <footer>
+        </footer>
     </div>
-</main>
+</div>
+
+<script>
+    window.onload = function() {
+        const logoContainer = document.getElementById('logo-container');
+        const mainContent = document.getElementById('main-content');
+
+        setTimeout(() => {
+            logoContainer.style.transition = 'opacity 1s';
+            logoContainer.style.opacity = '0';
+            setTimeout(() => {
+                logoContainer.style.display = 'none';
+                mainContent.style.display = 'block';
+            }, 1000);
+        }, 1000);
+    };
+
+    function highlight(element) {
+        var items = document.querySelectorAll('.marcas li');
+        items.forEach(function(item) {
+            item.classList.remove('active');
+        });
+        element.classList.add('active');
+    }
+</script>
 </body>
 </html>

@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'Baron Rounded';
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+#logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000000;
+}
+
+#logo-container .inditex-text {
+    color: #ffffff;
+    font-size: 200px;
+    letter-spacing: -2px;
+    font-family: 'Baron Rounded', Arial, sans-serif;
+}
+
+header {
+    background: #000000;
+    padding: 20px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+h1 {
+    font-size: 80px;
+    font-weight: bold;
+    margin: 0;
+    color: #ffffff;
+    font-family: 'Baron Rounded', Arial, sans-serif;
+}
+
+.inditex-text {
+    text-align: left;
+    margin-left: 30px;
+    line-height: 0.8;
+    font-size: 200px;
+    letter-spacing: -2px;
+}
+
+nav {
+    background: transparent;
+    padding: 15px 0;
+    position: absolute;
+    top: 200px;
+    left: 0;
+    width: 100%;
+}
+
+.marcas {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.marcas li {
+    margin: 0 15px;
+    font-size: 16px;
+    font-weight: normal;
+    transition: transform 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.marcas li:hover {
+    transform: scale(1.1);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.marcas li.active {
+    font-weight: bold;
+}
+
+.container {
+    background-color: #ffffff;
+    padding-top: 100px;
+}
+
+.search-section {
+    margin-top: 300px;
+    position: relative;
+}
+
+.search-input {
+    font-size: 24px;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    width: 300px;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: black;
+}
+
+.underline {
+    content: '';
+    display: block;
+    width: 400px;
+    height: 2px;
+    background-color: black;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+footer {
+    background: #000000;
+    color: #ffffff;
+    padding: 40px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 1000;
+}
