@@ -85,3 +85,22 @@ botonFuncion.addEventListener("click", async () => {
         console.log("FALLO");
     }
 });
+
+
+async function buscarProd(query, marca = null) {
+    const page = 1;
+    const perPage = 10;
+
+    const params = new URLSearchParams({ query, page, perPage });
+    if (marca) {
+        params.append('marca', marca);
+    }
+
+    const url = `http://localhost:8000/products?${params.toString()}`;
+
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+    }
+    return response.json();
+}
