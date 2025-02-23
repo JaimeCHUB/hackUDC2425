@@ -1,16 +1,22 @@
 import requests
+import configparser
+
+config = configparser.ConfigParser()
+
+# Leer el archivo INI
+config.read("config.ini")
 
 def _get_mock_image():
-    sample_image = "https://static.zara.net/assets/public/dd96/b577/6c8441ebb864/ad6d53e57aee/08372261507-015-a1/08372261507-015-a1.jpg?ts=1736513008633&w=835"
+    sample_image = config["google"]["sample_image"]
     return sample_image
 
 def get_google_image(query:str, mock:bool = True):
     if mock: return _get_mock_image()
 
-    api_key = "AIzaSyCn897caMX-UEnDdDNFDSFvWLftlQmlZ8M"
-    cx = "333e8cb4385db41c0"
+    api_key = config["google"]["api_key"]
+    cx = config["google"]["cx"]
     num = 1
-    url = "https://www.googleapis.com/customsearch/v1"
+    url = config["google"]["api_url"]
 
     params = {
         "q": query,          # Término de búsqueda

@@ -1,16 +1,22 @@
 import requests
 from requests.auth import HTTPBasicAuth
+import configparser
+
+config = configparser.ConfigParser()
+
+# Leer el archivo INI
+config.read("config.ini")
 
 def get_token():
     # URL de la API
     #url = "https://auth.inditex.com:443/openam/oauth2/itxid/itxidmp/sandbox/access_token"
-    url = "https://auth.inditex.com:443/openam/oauth2/itxid/itxidmp/access_token"
+    url = config["indetex"]["token_url"]
 
     # Credenciales de autenticación básica
     #username = "oauth-mkpsbox-oauthrpqkodgkfmpritxkffsnbxpro"
-    username= "oauth-mkplace-oauthsmbhufobimglobpshkpropro"
+    username= config["indetex"]["username"]
     #password = "Ny8eKaz3L9@:sDzp"
-    password = "-GY7Q[CA0yHYSZjC"
+    password = config["indetex"]["password"]
 
     # Datos del cuerpo de la solicitud
     data = {
@@ -42,7 +48,7 @@ id_token = get_token()
 def get_products(query:str, brand:str, page:int, perPage:int):
     # URL de la API
     #url = "https://api-sandbox.inditex.com/searchpmpa-sandbox"
-    url = "https://api.inditex.com/searchpmpa"
+    url = config["indetex"]["text_api_url"]
     endpoint= "/products"
 
     # Encabezados de la solicitud
@@ -77,7 +83,7 @@ def get_products(query:str, brand:str, page:int, perPage:int):
         print("Error en la solicitud:", e)
 
 def get_products_by_image(image: str, page: int, perPage:int):
-    url = "https://api.inditex.com/pubvsearch"
+    url = config["indetex"]["image_api_url"]
     endpoint= "/products"
 
     # Encabezados de la solicitud
