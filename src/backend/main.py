@@ -23,7 +23,7 @@ class BrandName(str, Enum):
     lefties = "lefties"
 
 def add_image(product):
-    image = customSearch.get_google_image(f"{product.get("name")} {product.get("brand")}", True)
+    image = customSearch.get_google_image(f"{product.get("name")} {product.get("brand")}")
     product["image"] = image
     return product
 
