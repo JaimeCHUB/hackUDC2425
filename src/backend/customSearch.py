@@ -10,8 +10,10 @@ def _get_mock_image():
     sample_image = config["google"]["sample_image"]
     return sample_image
 
-def get_google_image(query:str, mock:bool = config["google"]["mock"]):
-    if mock: return _get_mock_image()
+def get_google_image(query:str, mock:bool | None = None):
+    if mock == None:
+        mock = config["google"]["mock"]
+    if mock == "True": return _get_mock_image()
 
     api_key = config["google"]["api_key"]
     cx = config["google"]["cx"]
