@@ -29,11 +29,8 @@ body {
 
 header {
     background: #000000;
-    padding: 20px 0;
-    position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
 }
 
 h1 {
@@ -53,12 +50,13 @@ h1 {
 }
 
 nav {
-    background: transparent;
+    background-color: white;
     padding: 15px 0;
-    position: absolute;
-    top: 200px;
     left: 0;
     width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .marcas {
@@ -73,7 +71,7 @@ nav {
     margin: 0 15px;
     font-size: 16px;
     font-weight: normal;
-    transition: transform 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease;
+    transition: transform 0.2s ease, font-size 0.2s ease, font-weight 0.2s ease;
     background: rgba(255, 255, 255, 0.5);
     padding: 5px 10px;
     border-radius: 5px;
@@ -91,13 +89,10 @@ nav {
 
 .container {
     background-color: #ffffff;
-    padding-top: 100px;
-    padding-left: 40px; /* Aumenta el espacio con los bordes de la página */
-    padding-right: 40px; /* Aumenta el espacio con los bordes de la página */
 }
 
 .search-section {
-    margin-top: 220px;
+    margin-top: 110px;
     position: relative;
 }
 
@@ -131,6 +126,14 @@ nav {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px; /* Más espacio entre los productos */
     margin-top: 40px; /* Ajusta este valor según tus necesidades */
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.producto-item {
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 #container-prod img {

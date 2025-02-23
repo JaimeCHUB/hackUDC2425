@@ -111,7 +111,7 @@ window.onload = () => {
 
 function handleScroll() {
     if (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 &&
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 400 &&
         !isLoading &&
         hasMoreProducts &&
         searchInput.value.trim() !== ""
