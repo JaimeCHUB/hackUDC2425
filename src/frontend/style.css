@@ -96,6 +96,13 @@ nav {
     padding-right: 40px; /* Aumenta el espacio con los bordes de la página */
 }
 
+.noti-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
 .search-section {
     margin-top: 220px;
     position: relative;

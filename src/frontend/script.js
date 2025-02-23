@@ -42,7 +42,7 @@ function insertarProductos(data, append = false) {
             container.appendChild(fila) // Metemos la fila al container final
         })
     } else if (!append) { // En caso de que no hayamos scrolleado todos los productos y no encontrará ninguno, aparecerá este mensaje
-        container.innerHTML = "<p>No se encontraron productos.</p>"
+        container.innerHTML = '<div class="noti-class"><p>No se encontraron productos.</p></div>';
     }
 }
 
