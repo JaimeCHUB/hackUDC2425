@@ -3,6 +3,9 @@ const searchInput = document.querySelector(".search-input") // Definimos referen
 let actualBrand = "zara" // Por defecto entendemos que es zara
 // ------
 
+
+
+
 function insertarProductos(data, append = false) {
     const container = document.getElementById("container-prod") // Donde vamos a agregar html inyectado
     if (!append) { // Si es true, nos interesa añadir, por lo que saltamos está línea
@@ -144,3 +147,12 @@ async function buscarProd(query, brand, page = 1, perPage = 4) { // Implementa e
         throw error
     }
 }
+
+function openPopup() {
+    document.getElementById('popup').style.display = 'block';
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+

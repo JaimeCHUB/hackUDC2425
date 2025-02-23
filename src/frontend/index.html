@@ -29,7 +29,10 @@
         </nav>
         <main class="content">
             <div class="search-section">
-                <input type="text" class="search-input" placeholder="¿Qué estás buscando?">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="¿Qué estás buscando?">
+                    <img src="https://static-00.iconduck.com/assets.00/google-lens-icon-512x512-nqbl0ojo.png" class="search-icon" onclick="openPopup()" alt="Buscar">
+                </div>
                 <div class="underline"></div>
             </div>
             <!-- Meter filas dinámicamente -->
@@ -37,6 +40,19 @@
         </main>
     </div>
 </div>
+
+<!-- Ventana emergente -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <p>AÑADE UNA IMAGEN PARA BUSCAR SIMILARES</p>
+        <div id="drop-area">
+            <input type="text" id="fileElem" placeholder="URL IMAGEN">
+            <img src="https://img.freepik.com/vector-premium/lupa-icono-negro-buscar-simbolo-mirar-signo_53562-18721.jpg" class="search-icon" alt="Buscar">
+        </div>
+    </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
