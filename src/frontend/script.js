@@ -25,7 +25,7 @@ function insertarProductos(data, append = false) {
             enlace.appendChild(imagen) // Conectamos el enlace a la imágen
             fila.appendChild(enlace) // Conectamos la imágen a la fila
 
-            if (product.price.original == null) { // Si no tiene rebaja
+            if (product.price.value.original === null) { // Si no tiene rebaja
                 fila.innerHTML += `
                 <h3>${product.name}</h3>
                 <p>Precio: ${product.price.value.current} ${product.price.currency}</p>
@@ -34,7 +34,7 @@ function insertarProductos(data, append = false) {
             } else { // Si está de rebaja
                 fila.innerHTML += `
                 <h3>${product.name}</h3>
-                <p>Precio: ${product.price.value.original} ${product.price.currency} - ${product.price.value.current} ${product.price.currency}</p>
+                <p>Precio: <del>${product.price.value.original} ${product.price.currency}</del> - ${product.price.value.current} ${product.price.currency}</p>
                 <p>Marca: ${product.brand}</p>
                 `
             }
@@ -42,7 +42,7 @@ function insertarProductos(data, append = false) {
             container.appendChild(fila) // Metemos la fila al container final
         })
     } else if (!append) { // En caso de que no hayamos scrolleado todos los productos y no encontrará ninguno, aparecerá este mensaje
-        container.innerHTML = "<p>No se encontraron productos.</p>"
+        container.innerHTML = '<div class="noti-class"><p>No se encontraron productos.</p></div>';
     }
 }
 
