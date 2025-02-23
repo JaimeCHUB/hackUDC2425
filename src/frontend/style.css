@@ -139,8 +139,13 @@ nav {
 
 .producto-item {
     text-align: left;
-    margin-top: 0px;
+    margin-bottom: 24px;
+}
+.producto-item h3, p {
     margin-bottom: 0px;
+}
+.producto-item p {
+    margin-top: 8px;
 }
 
 #container-prod img {
