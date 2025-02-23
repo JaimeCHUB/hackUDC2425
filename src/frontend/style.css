@@ -92,6 +92,8 @@ nav {
 .container {
     background-color: #ffffff;
     padding-top: 100px;
+    padding-left: 40px; /* Aumenta el espacio con los bordes de la página */
+    padding-right: 40px; /* Aumenta el espacio con los bordes de la página */
 }
 
 .search-section {
@@ -124,13 +126,39 @@ nav {
     transform: translateX(-50%);
 }
 
+#container-prod {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px; /* Más espacio entre los productos */
+    margin-top: 40px; /* Ajusta este valor según tus necesidades */
+}
+
+#container-prod img {
+    width: 375px;
+    height: 525px; /* Ajusta este valor según tus necesidades */
+    object-fit: cover; /* Asegura que las imágenes mantengan la misma altura */
+    border-radius: 5px; /* Opcional: para bordes redondeados */
+    transition: filter 0.3s ease; /* Añade una transición suave */
+}
+
+#container-prod img:hover {
+    filter: brightness(70%); /* Oscurece la imagen al pasar el cursor por encima */
+}
+
+/* Cambia el tipo de letra de los artículos */
+#container-prod {
+    font-family: 'Baron Rounded', Arial, sans-serif; /* Cambia esta línea para usar la fuente que prefieras */
+}
+
 footer {
     background: #000000;
     color: #ffffff;
     padding: 40px 0;
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 100%; /* Asegura que el pie de página toque los bordes */
+    left: 0;
+    right: 0;
     text-align: center;
     z-index: 1000;
 }

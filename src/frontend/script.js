@@ -22,7 +22,7 @@ function actualizarImagen(nuevaURL) {
     imagen.src = nuevaURL || "nophoto.png";
 }
 
-async function buscarProd(query, brand, page = 1, perPage = 5) {
+async function buscarProd(query, brand, page = 1, perPage = 4) {
     const params = new URLSearchParams({ query, brand, page, perPage });
 
     const url = `http://127.0.0.1:8000/products/text?${params.toString()}`;
@@ -53,19 +53,28 @@ function insertarProductos(data) {
             const fila = document.createElement("div");
             fila.classList.add("producto-item");
 
+            const enlace = document.createElement("a");
+            enlace.href = product.link;
+            enlace.target = "_blank";
+
+            const imagen = document.createElement("img");
+            imagen.src = product.image;
+            imagen.alt = product.name;
+
+            enlace.appendChild(imagen);
+            fila.appendChild(enlace);
+
             if (product.price.original == null) {
-                fila.innerHTML = `
+                fila.innerHTML += `
                 <h3>${product.name}</h3>
                 <p>Precio: ${product.price.value.current} ${product.price.currency}</p>
                 <p>Marca: ${product.brand}</p>
-                <a href="${product.link}" target="_blank">Ver Producto</a>
                 `
             } else {
-                fila.innerHTML = `
+                fila.innerHTML += `
                 <h3>${product.name}</h3>
                 <p>Precio: ${product.price.value.original} ${product.price.currency} - ${product.price.value.current} ${product.price.currency}</p>
                 <p>Marca: ${product.brand}</p>
-                <a href="${product.link}" target="_blank">Ver Producto</a>
                 `
             }
 
