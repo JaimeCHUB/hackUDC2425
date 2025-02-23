@@ -3,9 +3,6 @@ const searchInput = document.querySelector(".search-input") // Definimos referen
 let actualBrand = "zara" // Por defecto entendemos que es zara
 // ------
 
-
-
-
 function insertarProductos(data, append = false) {
     const container = document.getElementById("container-prod") // Donde vamos a agregar html inyectado
     if (!append) { // Si es true, nos interesa añadir, por lo que saltamos está línea
@@ -150,9 +147,45 @@ async function buscarProd(query, brand, page = 1, perPage = 4) { // Implementa e
 
 function openPopup() {
     document.getElementById('popup').style.display = 'block';
+    var entryImg = document.getElementById('fileElem');
+    entryImg.value = '';
 }
 
 function closePopup() {
     document.getElementById('popup').style.display = 'none';
 }
 
+// API 2 - BÚSQUEDA POR IMÁGEN
+async function buscarImg(page = 1, perPage = 4) {
+    var entryImg = document.getElementById('fileElem');
+    var valueImg = entryImg.value.trim();
+
+    if (valueImg === '') {
+        console.log('Entry vacía.');
+        return false;
+    }
+
+    const params = new URLSearchParams({ image: valueImg, page, perPage });
+    const url = `http://127.0.0.1:8000/products/image?${params.toString()}`;
+    console.log(url)
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.status}`);
+        }
+
+        const data = await response.json();
+        insertarProductos(data);
+    } catch (error) {
+        console.error('Error al buscar productos por imagen:', error);
+    }
+    return true;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var searchIcon = document.getElementById('search-icon');
+    searchIcon.addEventListener('click', function() {
+        if(buscarImg()) closePopup();
+    });
+});
